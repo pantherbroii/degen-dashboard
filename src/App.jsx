@@ -47,9 +47,14 @@ export default function App() {
       alignItems: 'center' 
     }}>
       
-      {/* Centered Header Section */}
+      {/* Centered Header Section with Logo */}
       <div style={{ textAlign: 'center', marginBottom: '40px', maxWidth: '800px' }}>
         <header style={{ borderBottom: '1px solid #060', marginBottom: '20px', paddingBottom: '10px' }}>
+          <img 
+            src="/logo.png" 
+            style={{ width: '100px', height: '100px', marginBottom: '15px', borderRadius: '50%', border: '2px solid #0f0' }} 
+            alt="DEGEN_INTEL_LOGO" 
+          />
           <h1 style={{ fontSize: '2rem', fontWeight: 'bold', letterSpacing: '2px' }}> 
             {'>'} DEGEN_INTEL_SYSTEM_V1.0 
           </h1>
@@ -92,7 +97,7 @@ export default function App() {
         gap: '25px',
         width: '100%',
         maxWidth: '1200px',
-        flex: 1 // This pushes the footer to the bottom if there are few items
+        flex: 1 
       }}>
         {research.map((item) => (
           <div key={item.id} style={{ 
