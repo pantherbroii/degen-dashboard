@@ -1,16 +1,19 @@
-# React + Vite
+# DEGEN_INTEL_SYSTEM_V1.0 🔍💻
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A centralized terminal dashboard for high-conviction crypto research. Built with React and Vite.
 
-Currently, two official plugins are available:
+## 🚀 How to Run it Locally
+1. **Clone the repo:** `git clone https://github.com/pantherbroii/degen-dashboard.git`
+2. **Install dependencies:** `npm install`
+3. **Launch the terminal:** `npm run dev`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Features
+- **Centralized Links:** Instant access to DexScreener, X, and more.
+- **Vibe Meter:** Gauge your conviction before you ape.
+- **Hacker Aesthetic:** Green-on-black terminal UI for maximum focus.
 
-## React Compiler
+## 🤝 Vibe Coding
+This project was built using the "Vibe Coding" philosophy—turning ideas into code via natural language.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+[Check it out live!](https://degen-dashboard.vercel.app)
