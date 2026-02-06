@@ -44,7 +44,7 @@ export default function App() {
       width: '100vw',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center' // This centers the content horizontally
+      alignItems: 'center' 
     }}>
       
       {/* Centered Header Section */}
@@ -91,7 +91,8 @@ export default function App() {
         gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
         gap: '25px',
         width: '100%',
-        maxWidth: '1200px'
+        maxWidth: '1200px',
+        flex: 1 // This pushes the footer to the bottom if there are few items
       }}>
         {research.map((item) => (
           <div key={item.id} style={{ 
@@ -150,6 +151,25 @@ export default function App() {
           </div>
         ))}
       </div>
+
+      {/* --- FOOTER SIGNATURE --- */}
+      <footer style={{
+        marginTop: '80px',
+        padding: '20px',
+        borderTop: '1px solid #030',
+        textAlign: 'center',
+        fontSize: '0.8rem',
+        color: '#060',
+        fontFamily: 'monospace',
+        letterSpacing: '1px',
+        width: '100%',
+        maxWidth: '800px'
+      }}>
+        <p>SYSTEM: DEGEN_INTEL_V1.0</p>
+        <p>DESIGNED BY: <span style={{ color: '#0f0', fontWeight: 'bold' }}>PANTHERBROII</span></p>
+        <p>© 2026 // VIBE_CODING_PROTOCOL</p>
+      </footer>
+
     </div>
   );
 }
