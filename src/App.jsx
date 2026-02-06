@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 export default function App() {
   const [ticker, setTicker] = useState('');
   const [research, setResearch] = useState([]);
+  const [showGuide, setShowGuide] = useState(false); // New state for the guide
   
-  // Load data from browser memory
   useEffect(() => {
     const saved = localStorage.getItem('degen_intel');
     if (saved) setResearch(JSON.parse(saved));
@@ -44,20 +44,74 @@ export default function App() {
       width: '100vw',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center' 
+      alignItems: 'center',
+      position: 'relative'
     }}>
       
-      {/* Centered Header Section with Logo */}
+      {/* GUIDE MODAL OVERLAY */}
+      {showGuide && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, width: '100%', height: '100%',
+          backgroundColor: 'rgba(0, 20, 0, 0.9)',
+          zIndex: 1000,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '20px'
+        }}>
+          <div style={{
+            backgroundColor: '#000',
+            border: '2px solid #0f0',
+            padding: '30px',
+            maxWidth: '600px',
+            boxShadow: '0 0 20px #0f0',
+            position: 'relative'
+          }}>
+            <button 
+              onClick={() => setShowGuide(false)}
+              style={{ position: 'absolute', top: '10px', right: '10px', background: 'none', border: 'none', color: '#f00', cursor: 'pointer', fontSize: '1.2rem' }}
+            > [X] CLOSE </button>
+            
+            <h2 style={{ borderBottom: '1px solid #0f0', paddingBottom: '10px' }}>{'>'} SYSTEM_GUIDE_V1.0</h2>
+            <div style={{ fontSize: '0.9rem', lineHeight: '1.6', marginTop: '20px' }}>
+              <p><strong>1. INTAKE:</strong> Enter a ticker to create a new research file.</p>
+              <p><strong>2. INTEL:</strong> Use <strong>X_SEARCH</strong> & <strong>DEX_SCAN</strong> to verify social sentiment and charts.</p>
+              <p><strong>3. SECURITY:</strong> Check <strong>CONTRACT</strong> & <strong>LIQUIDITY</strong>. Never trade if these fail.</p>
+              <p><strong>4. CONVICTION:</strong> Adjust the <strong>VIBE_METER</strong> based on your gut feeling. 80%+ is the target.</p>
+              <p><strong>5. LOGGING:</strong> Note your thesis. Why are you buying? What is the exit plan?</p>
+            </div>
+            <p style={{ marginTop: '20px', color: '#8f8', fontSize: '0.8rem' }}>// END OF DOCUMENT //</p>
+          </div>
+        </div>
+      )}
+
+      {/* Centered Header Section */}
       <div style={{ textAlign: 'center', marginBottom: '40px', maxWidth: '800px' }}>
         <header style={{ borderBottom: '1px solid #060', marginBottom: '20px', paddingBottom: '10px' }}>
           <img 
             src="/logo.png" 
             style={{ width: '100px', height: '100px', marginBottom: '15px', borderRadius: '50%', border: '2px solid #0f0' }} 
-            alt="DEGEN_INTEL_LOGO" 
+            alt="LOGO" 
           />
           <h1 style={{ fontSize: '2rem', fontWeight: 'bold', letterSpacing: '2px' }}> 
             {'>'} DEGEN_INTEL_SYSTEM_V1.0 
           </h1>
+          
+          {/* THE NEW BUTTON */}
+          <button 
+            onClick={() => setShowGuide(true)}
+            style={{ 
+              background: 'none', 
+              border: '1px solid #0a0', 
+              color: '#0a0', 
+              padding: '5px 15px', 
+              cursor: 'pointer',
+              marginBottom: '10px',
+              fontSize: '0.7rem'
+            }}
+          > [?] HOW_IT_WORKS </button>
+
           <p style={{ fontSize: '0.8rem', color: '#0a0' }}>[STATUS: SCANNING_FOR_GEMS]</p>
         </header>
 
@@ -71,8 +125,7 @@ export default function App() {
               padding: '12px', 
               color: '#0f0', 
               width: '300px', 
-              outline: 'none', 
-              boxShadow: '0 0 5px #0f0' 
+              outline: 'none' 
             }}
             value={ticker}
             onChange={(e) => setTicker(e.target.value)}
@@ -100,14 +153,9 @@ export default function App() {
         flex: 1 
       }}>
         {research.map((item) => (
-          <div key={item.id} style={{ 
-            border: '1px solid #0f0', 
-            padding: '20px', 
-            backgroundColor: '#050505', 
-            boxShadow: 'inset 0 0 10px #0f02' 
-          }}>
+          <div key={item.id} style={{ border: '1px solid #0f0', padding: '20px', backgroundColor: '#050505' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-              <h2 style={{ fontSize: '2rem', margin: 0, fontStyle: 'italic' }}>${item.symbol}</h2>
+              <h2 style={{ fontSize: '2rem', margin: 0 }}>${item.symbol}</h2>
               <button onClick={() => {
                 const filtered = research.filter(r => r.id !== item.id);
                 setResearch(filtered);
@@ -115,36 +163,26 @@ export default function App() {
               }} style={{ color: '#f00', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.7rem' }}>[TERMINATE]</button>
             </div>
 
-            <div style={{ marginBottom: '15px', fontSize: '0.9rem', color: '#8f8' }}>
-              <label style={{ display: 'block', marginBottom: '8px', cursor: 'pointer' }}>
+            <div style={{ marginBottom: '15px', fontSize: '0.9rem' }}>
+              <label style={{ display: 'block', marginBottom: '8px' }}>
                 <input type="checkbox" checked={item.checks.contract} onChange={() => updateEntry(item.id, 'checks', {...item.checks, contract: !item.checks.contract})} /> CONTRACT_SAFE?
               </label>
-              <label style={{ display: 'block', cursor: 'pointer' }}>
+              <label style={{ display: 'block' }}>
                 <input type="checkbox" checked={item.checks.liq} onChange={() => updateEntry(item.id, 'checks', {...item.checks, liq: !item.checks.liq})} /> LIQUIDITY_LOCKED?
               </label>
             </div>
 
             <div style={{ marginBottom: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', marginBottom: '5px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
                 <span>VIBE_METER</span>
                 <span>{item.vibe}%</span>
               </div>
-              <input type="range" style={{ width: '100%', accentColor: '#0f0', cursor: 'pointer' }} value={item.vibe} onChange={(e) => updateEntry(item.id, 'vibe', e.target.value)} />
+              <input type="range" style={{ width: '100%', accentColor: '#0f0' }} value={item.vibe} onChange={(e) => updateEntry(item.id, 'vibe', e.target.value)} />
             </div>
 
             <textarea 
               placeholder="RESEARCH_NOTES..."
-              style={{ 
-                width: '100%', 
-                height: '80px', 
-                backgroundColor: '#0a0a0a', 
-                border: '1px solid #060', 
-                color: '#0f0', 
-                padding: '10px', 
-                outline: 'none', 
-                fontSize: '0.8rem',
-                resize: 'none'
-              }}
+              style={{ width: '100%', height: '80px', backgroundColor: '#0a0a0a', border: '1px solid #060', color: '#0f0', padding: '10px' }}
               value={item.notes}
               onChange={(e) => updateEntry(item.id, 'notes', e.target.value)}
             />
@@ -157,24 +195,10 @@ export default function App() {
         ))}
       </div>
 
-      {/* --- FOOTER SIGNATURE --- */}
-      <footer style={{
-        marginTop: '80px',
-        padding: '20px',
-        borderTop: '1px solid #030',
-        textAlign: 'center',
-        fontSize: '0.8rem',
-        color: '#060',
-        fontFamily: 'monospace',
-        letterSpacing: '1px',
-        width: '100%',
-        maxWidth: '800px'
-      }}>
+      <footer style={{ marginTop: '80px', padding: '20px', borderTop: '1px solid #030', textAlign: 'center', fontSize: '0.8rem', color: '#060', width: '100%' }}>
         <p>SYSTEM: DEGEN_INTEL_V1.0</p>
-        <p>DESIGNED BY: <span style={{ color: '#0f0', fontWeight: 'bold' }}>PANTHERBROII</span></p>
-        <p>© 2026 // VIBE_CODING_PROTOCOL</p>
+        <p>DESIGNED BY: <span style={{ color: '#0f0' }}>PANTHERBROII</span></p>
       </footer>
-
     </div>
   );
 }
