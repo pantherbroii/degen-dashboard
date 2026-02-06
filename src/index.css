@@ -1,0 +1,12 @@
+/* This resets the page so our app can take over the whole screen */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  margin: 0;
+  display: block;
+}
